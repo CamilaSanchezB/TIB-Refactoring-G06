@@ -20,6 +20,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// Incluye las rutas relacionadas con los estudiantes
-require_once("./routes/studentsRoutes.php");
+function obtenerRutas() {
+    $nombresRutas = [];
+
+    // glob para buscar todos los archivos que terminen con 'Routes.php' en la carpeta dada.
+    // glob devuelve un arreglo con las rutas completas a esos archivos.
+    foreach (glob(__DIR__ . '/routes' . '/*Routes.php') as $archivo) {
+        // Extrae sólo el nombre del archivo, sin la ruta ni la extensión '.php'
+        $nombreBase = basename($archivo, '.php');
+
+        // Verifica si el nombre del archivo termina con la palabra 'Routes'
+        if (substr($nombreBase, -strlen('Routes')) === 'Routes') {
+            $nombre = substr($nombreBase, 0, -strlen('Routes'));
+            $nombresRutas[] = $nombre;
+        }
+    }
+    return $nombresRutas;
+}
+$rutas = obtenerRutas();
+$ruta_solicitada = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))[4];
+if (in_array($ruta_solicitada, $rutas)) {
+    // Si la ruta solicitada está en la lista de rutas, se carga el archivo correspondiente
+    require_once(__DIR__ . '/routes/' . $ruta_solicitada . 'Routes.php');
+} else {
+    // Si no se encuentra la ruta, se devuelve un error 404
+    http_response_code(404);
+    echo json_encode(["error" => "Ruta no encontrada"]);
+}
+
 ?>
