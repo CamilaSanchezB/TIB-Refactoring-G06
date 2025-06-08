@@ -1,6 +1,6 @@
 <?php
 /**
-*    File        : backend/controllers/studentsController.php
+*    File        : backend/controllers/subjectsController.php
 *    Project     : CRUD PHP
 *    Author      : Tecnologías Informáticas B - Facultad de Ingeniería - UNMdP
 *    License     : http://www.gnu.org/licenses/gpl.txt  GNU GPL 3.0
@@ -9,21 +9,21 @@
 *    Iteration   : 3.0 ( prototype )
 */
 
-require_once("./models/students.php");
+require_once("./models/subjects.php");
 
 function handleGet($conn) 
 {
     $input = json_decode(file_get_contents("php://input"), true);
-    
+
     if (isset($input['id'])) 
     {
-        $student = getStudentById($conn, $input['id']);
-        echo json_encode($student);
+        $subject = getSubjectById($conn, $input['id']);
+        echo json_encode($subject);
     } 
-    else
+    else 
     {
-        $students = getAllStudents($conn);
-        echo json_encode($students);
+        $subjects = getAllSubjects($conn);
+        echo json_encode($subjects);
     }
 }
 
@@ -31,15 +31,15 @@ function handlePost($conn)
 {
     $input = json_decode(file_get_contents("php://input"), true);
 
-    $result = createStudent($conn, $input['fullname'], $input['email'], $input['age']);
+    $result = createSubject($conn, $input['name']);
     if ($result['inserted'] > 0) 
     {
-        echo json_encode(["message" => "Estudiante agregado correctamente"]);
+        echo json_encode(["message" => "Materia creada correctamente"]);
     } 
     else 
     {
         http_response_code(500);
-        echo json_encode(["error" => "No se pudo agregar"]);
+        echo json_encode(["error" => "No se pudo crear"]);
     }
 }
 
@@ -47,10 +47,10 @@ function handlePut($conn)
 {
     $input = json_decode(file_get_contents("php://input"), true);
 
-    $result = updateStudent($conn, $input['id'], $input['fullname'], $input['email'], $input['age']);
+    $result = updateSubject($conn, $input['id'], $input['name']);
     if ($result['updated'] > 0) 
     {
-        echo json_encode(["message" => "Actualizado correctamente"]);
+        echo json_encode(["message" => "Materia actualizada correctamente"]);
     } 
     else 
     {
@@ -62,11 +62,11 @@ function handlePut($conn)
 function handleDelete($conn) 
 {
     $input = json_decode(file_get_contents("php://input"), true);
-
-    $result = deleteStudent($conn, $input['id']);
+    
+    $result = deleteSubject($conn, $input['id']);
     if ($result['deleted'] > 0) 
     {
-        echo json_encode(["message" => "Eliminado correctamente"]);
+        echo json_encode(["message" => "Materia eliminada correctamente"]);
     } 
     else 
     {

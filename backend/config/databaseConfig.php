@@ -1,18 +1,24 @@
 <?php
 /**
- * Definicion de variables que contienen las credenciales
- */
-$host = "localhost";
-$user = "students_user";
-$password = "12345";
-$database = "students_db";
+*    File        : backend/config/databaseConfig.php
+*    Project     : CRUD PHP
+*    Author      : Tecnologías Informáticas B - Facultad de Ingeniería - UNMdP
+*    License     : http://www.gnu.org/licenses/gpl.txt  GNU GPL 3.0
+*    Date        : Mayo 2025
+*    Status      : Prototype
+*    Iteration   : 3.0 ( prototype )
+*/
 
-//Instancia de mysqli
+$host = "localhost";
+$user = "students_user_3";
+$password = "12345";
+$database = "students_db_3";
+
 $conn = new mysqli($host, $user, $password, $database);
 
-//Si hubo un error 
-if ($conn->connect_error) {
-    http_response_code(500); //Devuelve codigo 500 Internal Server Error
-    die(json_encode(["error" => "Database connection failed"]));//Envia mensaje de error y detiene la ejecución
+if ($conn->connect_error) 
+{
+    http_response_code(500);
+    die(json_encode(["error" => "Database connection failed"]));
 }
 ?>
