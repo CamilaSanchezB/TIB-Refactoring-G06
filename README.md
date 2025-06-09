@@ -13,7 +13,7 @@ Desde commit [Clono refactoring 3.0](https://github.com/CamilaSanchezB/TIB-Refac
 
 - [ ] Agregar las siguientes validaciones al código  
     - [x] Sí el usuario intenta agregar dos materias de igual nombre debe mostrar un mensaje por pantalla indicando que esto no es posible -> [Ver resolucion](https://github.com/CamilaSanchezB/TIB-Refactoring-G06/pull/2)
-    - [ ] Cuando se intente guardar una relación materia y estudiante repetida, también debe validarse y dar un alerta por pantalla de que esa relación ya existe  
+    - [x] Cuando se intente guardar una relación materia y estudiante repetida, también debe validarse y dar un alerta por pantalla de que esa relación ya existe  -> [Ver resolucion](https://github.com/CamilaSanchezB/TIB-Refactoring-G06/pull/4)
     - [ ] Actualmente el código de la base de datos tiene habilitada la opción de borrado en cascada en la tabla students_subjects (ON DELETE CASCADE): debería deshabilitar esta opción y crear una validación que muestre por pantalla que no se puede borrar una materia o un estudiante si este está involucrado en una relación en la tabla/módulo intermedio students_subjects.
 
 ¿Se le ocurre otra validación necesaria o filtro? Pueden agregarla.
