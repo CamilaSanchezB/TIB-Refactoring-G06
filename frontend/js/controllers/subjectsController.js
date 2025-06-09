@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function setupSubjectFormHandler() {
   const form = document.getElementById("subjectForm");
   const messageDiv = document.getElementById("messageDiv");
-  let data;
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const subject = {
@@ -29,9 +29,9 @@ function setupSubjectFormHandler() {
 
     try {
       if (subject.id) {
-        data = await subjectsAPI.update(subject);
+        await subjectsAPI.update(subject);
       } else {
-        data = await subjectsAPI.create(subject);
+        await subjectsAPI.create(subject);
       }
 
       form.reset();
@@ -104,7 +104,6 @@ function createSubjectActionsCell(subject) {
   td.appendChild(deleteBtn);
   return td;
 }
-
 
 async function confirmDeleteSubject(id) {
   if (!confirm("¿Seguro que deseas borrar esta materia?")) return;

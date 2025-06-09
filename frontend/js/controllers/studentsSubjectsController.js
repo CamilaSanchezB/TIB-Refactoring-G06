@@ -48,24 +48,24 @@ async function initSelects() {
 function setupFormHandler() {
   const form = document.getElementById("relationForm");
   const messageDiv = document.getElementById("messageDiv");
-  let data;
+  
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const relation = getFormData();
 
     try {
-      if (relation.id) data = await studentsSubjectsAPI.update(relation);
-      else data = await studentsSubjectsAPI.create(relation);
+      if (relation.id) await studentsSubjectsAPI.update(relation);
+      else  await studentsSubjectsAPI.create(relation);
 
-      messageDiv.textContent = "Materia guardada correctamente";
+      messageDiv.textContent = "Materia asignada correctamente";
       messageDiv.className = "w3-panel w3-green w3-padding-16";
 
       clearForm();
       loadRelations();
     } catch (err) {
       console.error("Error guardando relación:", err.message);
-      messageDiv.textContent = err.message || "Error al guardar la materia";
+      messageDiv.textContent = err.message || "Error al asignar la materia";
       messageDiv.className = "w3-panel w3-red w3-padding-16";
     }
   });
